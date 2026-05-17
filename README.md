@@ -1,38 +1,46 @@
 # Career Management System (CMS) - Applied Physics Engineering
 
-Este repositorio contiene un agente de automatización de mailing diseñado para optimizar y gestionar candidaturas profesionales. El sistema integra la gestión de bases de datos mediante Google Sheets, una interfaz de usuario interactiva con Streamlit y un módulo de generación de texto técnico mediante modelos de lenguaje (LLM).
+Este repositorio contiene un agente de automatización de mailing diseñado para gestionar candidaturas de forma profesional. El sistema integra Google Sheets como base de datos, una interfaz interactiva en Streamlit y un motor de generación de texto técnico (LLM).
 
 ## 🛠️ Arquitectura del Sistema
 
-El proyecto se divide en tres pilares fundamentales:
+1.  **Dashboard (Streamlit)**: Interfaz para visualización, filtrado y edición de candidaturas.
+2.  **Mailing Agent (Backend)**: Conexión con la API de Google Sheets y gestión de envíos.
+3.  **Generador IA**: Módulo de NLP para redactar párrafos técnicos personalizados.
 
-1.  **Dashboard de Control (Streamlit)**: Interfaz de usuario que permite la visualización en tiempo real del estado de las candidaturas, búsqueda filtrada y previsualización de contenidos antes del envío.
-2.  **Mailing Agent (Backend)**: Lógica encargada de la comunicación con la API de Google Sheets y el procesamiento de los estados de envío.
-3.  **Generador Motivacional (IA)**: Módulo de procesamiento de lenguaje natural (NLP) que redacta párrafos técnicos personalizados basados en puntos clave y el perfil de la empresa.
+## 📊 Configuración de la Base de Datos (Google Sheets)
 
-## 🚀 Funcionalidades Clave
+Para que el sistema funcione, el Google Sheet vinculado debe tener la siguiente estructura de columnas (estrictamente en la primera fila):
 
-* **Matriz de Aplicaciones**: Visualización dinámica de empresas (fetch de logos vía Clearbit/Google) y estados de envío (DRAFT, SCHEDULED, SENT).
-* **Laboratorio de Redacción**: Herramienta de generación de texto multi-idioma (Castellano, Català, English) con capacidad de edición en caliente.
-* **Sincronización en Tiempo Real**: Conexión bidireccional con Google Sheets para persistencia de datos.
+| Columna | Descripción | Ejemplo |
+| :--- | :--- | :--- |
+| **ENTERPRISE** | Nombre de la compañía | Hipra |
+| **CONTACT_NAME** | Persona de contacto | Maria García |
+| **EMAIL** | Email de destino | hr@empresa.com |
+| **LANG** | Idioma del correo (ES, CA, EN) | EN |
+| **TEMPLATE_ID** | Identificador de la plantilla | general_tech |
+| **CUSTOM_LINE** | Párrafo generado o manual | Me interesa su división de fotónica... |
+| **STATUS** | Estado (DRAFT, SENT, SCHEDULED) | DRAFT |
 
-## 📋 Requisitos e Instalación
+> **Nota**: El ID de la hoja se configura en la variable `SPREADSHEET_ID` dentro de `app.py`.
 
-### Dependencias
-El sistema requiere Python 3.8+ y las librerías listadas en `requirements.txt`.
+## 🚀 Instalación y Despliegue
 
+### 1. Clonar y dependencias
 ```bash
+git clone [https://github.com/PauMonterosa/Mailing-Agent.git](https://github.com/PauMonterosa/Mailing-Agent.git)
+cd Mailing-Agent
 pip install -r requirements.txt
 ```
-### Configuración
-Para el despliegue local, es necesario configurar las credenciales de Google Cloud (OAuth 2.0) y asignar el SPREADSHEET_ID correspondiente en el archivo principal.
+### 2. Credenciales de Google
+Es necesario obtener el archivo credentials.json desde la Google Cloud Console (habilitando la API de Google Sheets y Google Drive) y situarlo en la raíz del proyecto. El archivo token.json se generará automáticamente tras el primer inicio de sesión.
 
-## 🔧 Desarrollo y Extensibilidad
-El código está estructurado para facilitar la implementación de nuevos módulos:
-
-IA: La lógica de generación se encuentra encapsulada en generar_texto_motivacional para facilitar la migración a otros modelos o APIs (OpenAI, Anthropic, etc.).
-
-Templates: El sistema soporta la inclusión de nuevas plantillas de correo en el backend del agente.
+### 3. Ejecución
+```bash
+streamlit run app.py
+```
+## 🔧 Extensibilidad
+El sistema es modular. La lógica de generación de texto está aislada en generar_texto_motivacional, permitiendo la migración a APIs oficiales de OpenAI o Anthropic de forma sencilla.
 
 Autor: Pau Monterosa
 
