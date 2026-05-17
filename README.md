@@ -30,12 +30,10 @@ Para el despliegue local, es necesario configurar las credenciales de Google Clo
 ## 🔧 Desarrollo y Extensibilidad
 El código está estructurado para facilitar la implementación de nuevos módulos:
 
-## IA: La lógica de generación se encuentra encapsulada en generar_texto_motivacional para facilitar la migración a otros modelos o APIs (OpenAI, Anthropic, etc.).
+IA: La lógica de generación se encuentra encapsulada en generar_texto_motivacional para facilitar la migración a otros modelos o APIs (OpenAI, Anthropic, etc.).
 
-## Templates: El sistema soporta la inclusión de nuevas plantillas de correo en el backend del agente.
+Templates: El sistema soporta la inclusión de nuevas plantillas de correo en el backend del agente.
 
-## Autor: Pau Monterosa
+Autor: Pau Monterosa
 
-## Perfil: Ingeniería Física
-
-"# Mailing-Agent" 
+Perfil: Ingeniería Física
